@@ -10,7 +10,8 @@ class CustomNavBar extends StatelessWidget {
     required this.onTap,
   });
 
-  final List<IconData> icons = const [
+  // قائمة الأيقونات بالترتيب
+  static const List<IconData> icons = [
     Icons.home_outlined,
     Icons.ondemand_video_outlined,
     Icons.bookmark_border,
@@ -19,28 +20,48 @@ class CustomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        decoration: BoxDecoration(
-          color: const Color(0xFFE14D2A),
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: List.generate(icons.length, (index) {
-            return GestureDetector(
-              onTap: () => onTap(index),
-              child: Icon(
-                icons[index],
-                size: 28,
-                color: currentIndex == index
-                    ? Colors.white
-                    : Colors.white.withOpacity(0.7),
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          decoration: BoxDecoration(
+            color: const Color(0xFFE14D2A),
+            borderRadius: BorderRadius.circular(30),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                blurRadius: 8,
+                offset: const Offset(0, 3),
               ),
-            );
-          }),
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: List.generate(icons.length, (index) {
+              final bool isSelected = currentIndex == index;
+              return GestureDetector(
+                onTap: () => onTap(index),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? Colors.white.withOpacity(0.2)
+                        : Colors.transparent,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    icons[index],
+                    size: 28,
+                    color: isSelected
+                        ? Colors.white
+                        : Colors.white.withOpacity(0.7),
+                  ),
+                ),
+              );
+            }),
+          ),
         ),
       ),
     );
