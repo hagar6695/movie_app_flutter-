@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import '../widgets/navigation_bar.dart';
 import 'Home_screen.dart';
-//import 'favorites_screen.dart';
-//import 'wishlist_screen.dart';
-//import 'profile_screen.dart';
+import 'wishlist_screen.dart';
+import 'profile_screen.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
@@ -15,11 +14,12 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   int _selectedIndex = 0;
 
+  // ✅ أربع صفحات مقابل أربع أيقونات
   final List<Widget> _pages = const [
-    HomePage(),
-    //FavoritesPage(),
-    // WishlistPage(),
-    //ProfilePage(),
+    HomePage(),          // index 0 → Home icon
+    Placeholder(),       // index 1 → Video icon (مؤقت لحد ما نضيف الصفحة دي)
+    WishlistScreen(),    // index 2 → Bookmark icon
+    ProfileScreen(),     // index 3 → Profile icon
   ];
 
   @override
